@@ -1,10 +1,14 @@
+using Pkg
 
 println("""
 ======================
 Initializing package repository
 ======================
 """)
-Pkg.init()
+
+println(Base.VERSION_STRING)
+
+#Pkg.init()
 
 install_or_update(url::String, pkg::String) = try 
     if Pkg.installed(pkg) !== nothing
@@ -13,7 +17,10 @@ install_or_update(url::String, pkg::String) = try
     end
 catch err
     println("Installing $pkg...")
-    Pkg.clone(url, pkg)
+    repo = Pkg.Types.GitRepo(url)
+    package = Pkg.PackageSpec(pkg, Pkg.UUID(zero(UInt128)))
+
+    Pkg.add(package)
 end
 
 

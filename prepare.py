@@ -8,12 +8,13 @@ import shutil
 import stat
 from PIL import Image
 
-JULIA_VERSION = (0, 6, 3)
+JULIA_VERSION = (0, 7, 0)
+JULIA_RELEASE = "-alpha"
 CHECKSUM_TYPE = "sha256"
 
-JULIA_BIN_FILENAME = "julia-{v[0]}.{v[1]}.{v[2]}-win64.exe".format(v=JULIA_VERSION)
+JULIA_BIN_FILENAME = "julia-{v[0]}.{v[1]}.{v[2]}{release}-win64.exe".format(v=JULIA_VERSION, release=JULIA_RELEASE)
 JULIA_BIN = "https://julialang-s3.julialang.org/bin/winnt/x64/{v[0]}.{v[1]}/{file}".format(v=JULIA_VERSION, file=JULIA_BIN_FILENAME)
-JULIA_CHECKSUMS = "https://julialang-s3.julialang.org/bin/checksums/julia-{v[0]}.{v[1]}.{v[2]}.{checksum}".format(v=JULIA_VERSION, checksum=CHECKSUM_TYPE)
+JULIA_CHECKSUMS = "https://julialang-s3.julialang.org/bin/checksums/julia-{v[0]}.{v[1]}.{v[2]}{release}.{checksum}".format(v=JULIA_VERSION, checksum=CHECKSUM_TYPE, release=JULIA_RELEASE)
 
 LOGO_FILE = "logo-1024-a.png"
 ICON_SIZES = [16, 32, 48, 64, 96, 128, 256]
@@ -278,11 +279,11 @@ def setupAhorn():
     return cmd([os.path.join(BUILD_DIR, "julia.bat"), "setup-ahorn.jl"], stdout=None, stderr=None)
 
 if __name__ == "__main__":
-    print(cleanArtifacts())
-    print(cleanBuild())
-    print(extractJulia())
+    #print(cleanArtifacts())
+    #print(cleanBuild())
+    #print(extractJulia())
     print(copySrc())
     print(setupAhorn())
     print(makeIco())
     print(compileNSISTemplate())
-    print(NSISBuildInstaller())
+    #print(NSISBuildInstaller())
