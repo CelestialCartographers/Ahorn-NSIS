@@ -283,7 +283,7 @@ if __name__ == "__main__":
     #print(cleanBuild())
     #print(extractJulia())
     print(copySrc())
-    print(setupAhorn())
     print(makeIco())
+    print(setupAhorn())
     print(compileNSISTemplate())
     #print(NSISBuildInstaller())
