@@ -1,4 +1,9 @@
+println(Base.DEPOT_PATH)
+
 using Pkg
+PackageSpec = Pkg.Types.PackageSpec
+GitRepo = Pkg.Types.GitRepo
+UUID = Pkg.UUID
 
 println("""
 ======================
@@ -10,19 +15,13 @@ println(Base.VERSION_STRING)
 
 #Pkg.init()
 
-install_or_update(url::String, pkg::String) = try 
-    if Pkg.installed(pkg) !== nothing
-        println("Updating $pkg...")
-        Pkg.update(pkg)
-    end
-catch err
-    println("Installing $pkg...")
-    repo = Pkg.Types.GitRepo(url)
-    package = Pkg.PackageSpec(pkg, Pkg.UUID(zero(UInt128)))
-
-    Pkg.add(package)
+function addPkg(pkg::String, uuid::UUID, url::String, revspec::String)
+    p = Pkg.Types.PackageSpec(pkg, uuid)
+    p.repo = Pkg.Types.GitRepo(url, revspec)
+    Pkg.add(p)
 end
 
+addPkg(pkg::String, uuid::UUID, url::String) = addPkg(pkg::String, uuid::UUID, url::String, "master")
 
 println("""
 ======================
@@ -30,8 +29,8 @@ Installing packages
 ======================
 """)
 
-install_or_update("https://github.com/CelestialCartographers/Maple.git", "Maple")
-install_or_update("https://github.com/CelestialCartographers/Ahorn.git", "Ahorn")
+addPkg("Maple", UUID("758f2280-739b-11e8-2a5b-4de435b9eb93"), "https://github.com/oddstr13/Maple.git", "julia-0.7.0")
+addPkg("Ahorn", UUID("7bc567e0-739b-11e8-07b8-83d6bec444d8"), "https://github.com/oddstr13/Ahorn.git", "julia-0.7.0")
 
 Pkg.add("HTTP")
 

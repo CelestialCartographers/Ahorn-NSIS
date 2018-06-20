@@ -280,10 +280,10 @@ def setupAhorn():
 
 if __name__ == "__main__":
     #print(cleanArtifacts())
-    #print(cleanBuild())
-    #print(extractJulia())
+    print(cleanBuild())
+    print(extractJulia())
     print(copySrc())
     print(makeIco())
     print(setupAhorn())
-    print(compileNSISTemplate())
+    #print(compileNSISTemplate())
     #print(NSISBuildInstaller())
