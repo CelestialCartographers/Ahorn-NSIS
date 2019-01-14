@@ -121,7 +121,7 @@ section "uninstall"
 {% for file in files %}
 	delete "$INSTDIR\{{ file.output }}"{% endfor %}
 
-{% for dir in dirs %}
+{% for dir in dirs|reverse %}
 	rmDir "$INSTDIR\{{ dir }}"{% endfor %}
  
 	# Always delete uninstaller as the last action
