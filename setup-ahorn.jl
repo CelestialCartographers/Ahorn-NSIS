@@ -1,19 +1,9 @@
+using Pkg
 
-println("""
-======================
-Initializing package repository
-======================
-""")
-Pkg.init()
-
-install_or_update(url::String, pkg::String) = try 
-    if Pkg.installed(pkg) !== nothing
-        println("Updating $pkg...")
-        Pkg.update(pkg)
-    end
-catch err
-    println("Installing $pkg...")
-    Pkg.clone(url, pkg)
+install_or_update(url::String, pkg::String) = begin
+    spec = PackageSpec(name=pkg, url=url)
+    Pkg.add(spec)
+    Pkg.update(spec)
 end
 
 
